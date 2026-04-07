@@ -20,26 +20,21 @@ export function CardChart({
   className
 }: CardChartProps) {
   return (
-    <Card className={cn(className)}>
+    <Card className={cn("surface-card card-hover", className)}>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg">{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent>
-        {/* Vùng chứa biểu đồ với chiều cao cố định */}
         <div className={cn("w-full", chartHeight)}>
-          {/* FIX: Thêm một div bọc với h-full.
-            Điều này rất quan trọng cho các thư viện như Recharts, 
-            vì ResponsiveContainer cần một parent có height: 100%.
-          */}
           <div className="h-full w-full">
             {children}
           </div>
         </div>
         {dataInfo && (
-          <p className="text-xs text-muted-foreground mt-2">
+          <div className="mt-3 inline-flex rounded-full border border-border bg-muted/70 px-3 py-1 text-xs text-muted-foreground">
             {dataInfo}
-          </p>
+          </div>
         )}
       </CardContent>
     </Card>

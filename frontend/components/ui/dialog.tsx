@@ -50,10 +50,10 @@ const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 bg-slate-950/50 backdrop-blur-md"
         onClick={() => onOpenChange(false)}
       />
       {/* Dialog content */}
@@ -69,10 +69,8 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
     <div
       ref={ref}
       className={cn(
-        "glass-morphism relative w-full max-w-lg p-6 shadow-lg sm:rounded-lg",
-        "bg-white border border-border",
+        "relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-white/95 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl",
         "animate-in fade-in-0 zoom-in-95 duration-300",
-        "max-h-[90vh] overflow-y-auto",
         className
       )}
       {...props}
@@ -122,9 +120,7 @@ const DialogClose = ({ onClose }: { onClose: () => void }) => (
   <button
     onClick={onClose}
     className={cn(
-      "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity",
-      "hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-      "disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+      "absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-white/80 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-foreground hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
     )}
   >
     <X className="h-4 w-4" />
