@@ -128,7 +128,7 @@ const odorLabels: { [key: string]: string } = {
 }
 
 // Wrapper for charts to handle loading/empty states
-const ChartWrapper = ({ children, data, isStreaming }: { children: React.ReactNode, data: any[], isStreaming: boolean }) => {
+const ChartWrapper = ({ children, data, isStreaming }: { children: React.ReactNode, data: ChartDataPoint[], isStreaming: boolean }) => {
   if (isStreaming && data.length === 0) {
     return (
         <div className="flex items-center justify-center h-full text-muted-foreground">
@@ -161,7 +161,8 @@ const chartOptions: ChartOptions<'line'> = {
                 label: (context) => {
                     const label = context.dataset.label || '';
                     const value = context.parsed.y;
-                    return `${label}: ${value.toFixed(2)}`;
+                  const displayValue = typeof value === 'number' ? value.toFixed(2) : 'N/A';
+                  return `${label}: ${displayValue}`;
                 },
             },
         },
@@ -268,7 +269,7 @@ export default function ThingSpeakPage() {
       })
       
       // Calculate new averages from current chart data
-      const newAverages = sensors.map((sensor, index) => {
+      const newAverages = sensors.map((sensor) => {
         const sensorData = newData[sensor]
         if (sensorData.length === 0) return 0
         const sum = sensorData.reduce((acc, point) => acc + point.value, 0)
